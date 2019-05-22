@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Plus Minus Table Drill</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <style>
+        table {
+            text-align: center;
+            font-size: 2em;
+        }
+
+        table > td, th {
+            width: 100px;
+            hight: 100px;
+        }
+
+        .highlight_cell {
+            background: rgba(255, 10, 10, 0.4);
+            font-weight: bold;
+        }
+        .my-btn {
+            color: #fff;
+            background-color: rgba(20, 160, 20, 0.4);
+            border-color: rgba(20, 160, 20, 0.4);
+            font-size: 2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Content here -->
+    <h1 class="display-1">Plus Minus Table Drill</h1>
+    <div class="row">
+    <table id="drill-matrix" class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th>I</th><th>We</th><th>You</th><th>He</th><th>She</th><th>It</th><th>They</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>+</td><td>+</td><td>+</td><td>+</td><td>+</td><td>+</td><td>+</td>
+        </tr>
+        <tr>
+            <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+        </tr>
+        <tr>
+            <td>?</td><td>?</td><td>?</td><td>?</td><td>?</td><td>?</td><td>?</td>
+        </tr>
+        <tr>
+            <td>?-</td><td>?-</td><td>?-</td><td>?-</td><td>?-</td><td>?-</td><td>?-</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="row">
+        <button id="next-btn"  type="submit" class="btn my-btn btn-lg btn-block">Next!</button>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+    let SENTENCE_TYPES_COUNT = 4;
+    let SUBJECTS_COUNT = 7;
+    let HIGLIGHT_CLASS = 'highlight_cell';
+
+    let lastSentenceType = randomInt(SENTENCE_TYPES_COUNT);
+    let lastSubject = randomInt(SUBJECTS_COUNT);
+
+    $('#next-btn').click(function () {
+        let randomSentenceType = undefined;
+        let randomSubject = undefined;
+        do {
+            randomSentenceType = randomInt(SENTENCE_TYPES_COUNT);
+            randomSubject = randomInt(SUBJECTS_COUNT);
+        } while (randomSentenceType === lastSentenceType || randomSubject === lastSubject)
+
+        let rows = $('#drill-matrix tbody tr');
+
+        $($(rows.get(lastSentenceType)).find('td').get(lastSubject)).removeClass(HIGLIGHT_CLASS);
+        $($(rows.get(randomSentenceType)).find('td').get(randomSubject)).addClass(HIGLIGHT_CLASS);
+
+        lastSentenceType = randomSentenceType;
+        lastSubject = randomSubject;
+    });
+
+    function randomInt(maxValue) {
+        return Math.floor(Math.random() * maxValue)
+    }
+
+</script>
+</body>
+</html>
